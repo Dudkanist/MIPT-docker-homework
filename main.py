@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+from typing import Optional
 
 app = FastAPI()
 
@@ -12,12 +13,17 @@ DB_FILE = os.path.join(DATA_DIR, "genes.txt")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 class Gene(BaseModel):
+    """
+    Модель гена для сохранения в базу данных. 
+    Используется для передачи имени и описания в genes.txt.
+    """
     name: str = Field(
-        default="ABCD",
+        default="BRCA",
         description="Название гена, который ходите сохранить в app/data/genes.txt"
         )
-    description: str = Field(
-        default="",
+
+    description: Optional[str] = Field(
+        default="Nothing",
         description="Описание гена, который ходите сохранить в app/data/genes.txt"
         )
 
